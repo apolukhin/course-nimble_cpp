@@ -24,12 +24,11 @@ static void fill_container_simple(T& c, std::size_t size) {
 }
 
 
-template <class F>
-static void containers_iteration(benchmark::State& state, F f) {
-    decltype(f()) d;
-
+template <class Type>
+static void containers_iteration(benchmark::State& state) {
     for (auto _ : state) {
         state.PauseTiming();
+        Type d;
         fill_container_simple(d, state.range(0));
         state.ResumeTiming();
 
@@ -43,13 +42,13 @@ static void containers_iteration(benchmark::State& state, F f) {
     }
 }
 
-template <class F>
-static void containers_insertion(benchmark::State& state, F f) {
+template <class Type>
+static void containers_insertion(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     for (auto _ : state) {
-        decltype(f()) d;
+        Type d;
         d.clear();
         for (std::size_t i = 0; i < state.range(0); ++i) {
             d.insert(d.end(), uniform_dist(e1));
@@ -58,13 +57,13 @@ static void containers_insertion(benchmark::State& state, F f) {
     }
 }
 
-template <class F>
-static void containers_insertion_assoc(benchmark::State& state, F f) {
+template <class Type>
+static void containers_insertion_assoc(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     for (auto _ : state) {
-        decltype(f()) d;
+        Type d;
         d.clear();
         for (std::size_t i = 0; i < state.range(0); ++i) {
             d.insert(uniform_dist(e1));
@@ -73,12 +72,12 @@ static void containers_insertion_assoc(benchmark::State& state, F f) {
     }
 }
 
-template <class F>
-static void containers_search_assoc(benchmark::State& state, F f) {
+template <class Type>
+static void containers_search_assoc(benchmark::State& state) {
+    Type d;
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
-    decltype(f()) d;
     d.clear();
     for (std::size_t i = 0; i < state.range(0); ++i) {
         d.insert(uniform_dist(e1));

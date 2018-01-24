@@ -81,10 +81,10 @@ public:
 
 
 
-std::vector<my_unique_ptr> naive_uptr();
-std::vector<my_unique_ptr_opt> optimized_uptr();
+using naive_uptr = std::vector<my_unique_ptr>;
+using optimized_uptr = std::vector<my_unique_ptr_opt>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(containers_insertion, naive_uptr, naive_uptr)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_insertion, optim_uptr, optimized_uptr)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, naive_uptr)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, optimized_uptr)->Range(8, 8<<10);

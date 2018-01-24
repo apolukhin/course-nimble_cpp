@@ -6,13 +6,13 @@
 
 //////////////////////////// TASK 1 ////////////////////////////
 
-std::vector<int> naive_container();
-std::vector<int> optimized_container(); // Optimize
+using naive_container = std::vector<int>;
+using optimized_container = std::vector<int>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(containers_iteration, naive_container, naive_container)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_iteration, optim_container, optimized_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_iteration, naive_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_iteration, optimized_container)->Range(8, 8<<10);
 
-BENCHMARK_CAPTURE(containers_insertion, naive_container, naive_container)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_insertion, optim_container, optimized_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, naive_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, optimized_container)->Range(8, 8<<10);

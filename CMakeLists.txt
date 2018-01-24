@@ -21,6 +21,7 @@ add_executable(${PROJECT_NAME}
     algorithm_3.hpp
     algorithm_4.hpp
     algorithm_5.hpp
+    algorithm_6.hpp
     algorithm_x.hpp
 
 
@@ -31,6 +32,7 @@ add_executable(${PROJECT_NAME}
     container_4.hpp
     container_5.hpp
     container_6.hpp
+    container_7.hpp
 
     main.cpp
     )

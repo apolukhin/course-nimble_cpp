@@ -1,6 +1,6 @@
 #include "algorithm_common.hpp"
 
-//////////////////////////// TASK 3 ////////////////////////////
+//////////////////////////// TASK 5 ////////////////////////////
 
 int naive_10_perc_of_not_bankrupted(std::vector<int>& d) {
     std::stable_sort(d.begin(), d.end());

@@ -8,16 +8,16 @@
 
 //////////////////////////// TASK 6 ////////////////////////////
 
-std::unordered_set<int> naive_assoc_container();
-std::set<int> optimized_assoc_container();
+using naive_assoc_container = std::unordered_set<int>;
+using optimized_assoc_container = std::set<int>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(containers_iteration, naive_assoc_container, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_iteration, optim_assoc_container, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_iteration, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_iteration, optimized_assoc_container)->Range(8, 8<<10);
 
-BENCHMARK_CAPTURE(containers_search_assoc, naive_assoc_container, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_search_assoc, optim_assoc_container, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_search_assoc, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_search_assoc, optimized_assoc_container)->Range(8, 8<<10);
 
-BENCHMARK_CAPTURE(containers_insertion_assoc, naive_assoc_container, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_insertion_assoc, optim_assoc_container, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion_assoc, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion_assoc, optimized_assoc_container)->Range(8, 8<<10);

@@ -4,7 +4,7 @@
 #include <deque>
 #include <list>
 
-//////////////////////////// TASK 4 ////////////////////////////
+//////////////////////////// TASK 5 ////////////////////////////
 
 struct  my_array {
     int data_[100];
@@ -29,10 +29,10 @@ struct  my_array_opt {
 
 
 
-std::vector<my_array> naive_array();
-std::vector<my_array_opt> optimized_array();
+using naive_array = std::vector<my_array>;
+using optimized_array = std::vector<my_array_opt>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(containers_insertion, naive_array, naive_array)->Range(8, 8<<10);
-BENCHMARK_CAPTURE(containers_insertion, optim_array, optimized_array)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, naive_array)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(containers_insertion, optimized_array)->Range(8, 8<<10);
