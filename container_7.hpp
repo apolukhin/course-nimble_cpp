@@ -41,7 +41,7 @@ static vs_type filter_naive(vs_type generated) {
         generated.begin(),
         generated.end(),
         dest.begin(),
-        [](const auto& v) { return std::hash<std::string>{}(v) & 1; }
+        [](const std::string& v) { return std::hash<std::string>{}(v) & 1; }
     );
 
     dest.erase(it, dest.end());
@@ -89,7 +89,7 @@ static vs_type filter_optim(vs_type generated) {
         generated.begin(),
         generated.end(),
         dest.begin(),
-        [](const auto& v) { return std::hash<std::string>{}(v) & 1; }
+        [](const std::string& v) { return std::hash<std::string>{}(v) & 1; }
     );
 
     dest.erase(it, dest.end());
