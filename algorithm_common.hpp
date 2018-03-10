@@ -20,7 +20,7 @@ static void fill_container(std::vector<int>& c, std::size_t size) {
     }
 }
 
-
+// Fills container with Range elements count, measures `f(d)` execution time, compares result with `ethalon(d)`.
 template <class F, class Ethalon>
 static void algorithms(benchmark::State& state, F f, Ethalon ethalon) {
     std::vector<int> d;

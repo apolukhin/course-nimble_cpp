@@ -16,6 +16,8 @@ struct  my_complex_opt {
 };
 
 
+//////////////////////////// DETAIL ////////////////////////////
+
 template <class T>
 static void measure_copy_speed(benchmark::State& state) {
     const std::size_t elements_count = state.range(0);
@@ -31,8 +33,6 @@ static void measure_copy_speed(benchmark::State& state) {
     }
 }
 
-
-//////////////////////////// DETAIL ////////////////////////////
 BENCHMARK_TEMPLATE(measure_copy_speed, my_complex)->Range(8, 8<<10);
 BENCHMARK_TEMPLATE(measure_copy_speed, my_complex_opt)->Range(8, 8<<10);
 

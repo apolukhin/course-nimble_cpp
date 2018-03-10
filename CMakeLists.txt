@@ -34,6 +34,10 @@ add_executable(${PROJECT_NAME}
     container_6.hpp
     container_7.hpp
 
+    mt_common.hpp
+    mt_1.hpp
+    mt_2.hpp
+
     main.cpp
     )
 target_link_libraries(${PROJECT_NAME} benchmark)
