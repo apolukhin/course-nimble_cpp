@@ -15,11 +15,11 @@ os:
 
 env:
     matrix:
-        - CXX_FLAGS+="-std=c++11 -fsanitize=address,undefined" LINK_FLAGS+="" CXX=g++-7
-        - CXX_FLAGS+="-std=c++11" LINK_FLAGS+="" CXX=g++-6
-        - CXX_FLAGS+="-std=c++1y" LINK_FLAGS+="" CXX=g++-7
-        - CXX_FLAGS+="-std=c++14" LINK_FLAGS+="" CXX=g++-6
-        - CXX_FLAGS+="-std=c++11" LINK_FLAGS+="" TOOLSET=clang++
+        - CXX_FLAGS="-std=c++11 -fsanitize=address,undefined" LINK_FLAGS="" CXX=g++-7
+        - CXX_FLAGS="-std=c++11" LINK_FLAGS="" CXX=g++-6
+        - CXX_FLAGS="-std=c++1y" LINK_FLAGS="" CXX=g++-7
+        - CXX_FLAGS="-std=c++14" LINK_FLAGS="" CXX=g++-6
+        - CXX_FLAGS="-std=c++11" LINK_FLAGS="" TOOLSET=clang++
         #- CXX_FLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
         #- CXX_FLAGS="-std=c++1y -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
 
@@ -37,7 +37,7 @@ script:
     - echo $CXX_FLAGS
     - echo $LINK_FLAGS
     - echo $CXX
-    - VERBOSE=1 make -j2
+    - make -j2
     - ./cpp_fast
     - make distclean
     - cmake -DCMAKE_BUILD_TYPE=Release

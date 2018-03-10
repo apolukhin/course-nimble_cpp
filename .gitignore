@@ -32,6 +32,6 @@
 *.app
 
 CMakeCache.txt
-CMakeFiles/
 benchmark/src/generated/
 cmake_install.cmake
+cpp_fast
