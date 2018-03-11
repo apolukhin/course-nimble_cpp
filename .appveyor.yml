@@ -8,6 +8,7 @@ image: Visual Studio 2017
 configuration: Release
 platform: x64
 
+build_script:
 test_script:
     - cmake -DCMAKE_BUILD_TYPE=Release
     - nmake
