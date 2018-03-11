@@ -18,7 +18,7 @@ before_test:
 test_script:
     - cmake -DCMAKE_BUILD_TYPE=Release
     - cmake --build . --config Release
-    - ./cpp_fast.exe
+    - cpp_fast.exe
 
 after_test:
 
