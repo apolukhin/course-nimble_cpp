@@ -8,7 +8,7 @@
 ///
 ///
 
-/*
+
 
 ////////////////////////////// Section 1
 #include "algorithm_1.hpp"
@@ -30,7 +30,7 @@
 
 ////////////////////////////// Section 2, associative
 #include "container_6.hpp"
-#include "container_7.hpp"*/
+#include "container_7.hpp"
 
 
 ////////////////////////////// Section 3, multithreading
