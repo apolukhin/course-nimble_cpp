@@ -8,9 +8,18 @@ image: Visual Studio 2017
 configuration: Release
 platform: x64
 
+before_build:
 build_script:
+after_build:
+
+before_test:
 test_script:
     - cmake -DCMAKE_BUILD_TYPE=Release
     - nmake
     - ./cpp_fast.exe
 
+after_test:
+
+on_success:
+on_failure:
+on_finish:
