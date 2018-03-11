@@ -8,7 +8,6 @@ sudo: false
 language: cpp
 compiler:
     - gcc
-#    - clang
 
 os:
     - linux
@@ -34,10 +33,7 @@ addons:
     - libc++-dev
 
 script:
-    - echo $CXX_FLAGS
-    - echo $LINK_FLAGS
-    - echo $CXX
-    - make -j2
+    - cmake -DCMAKE_BUILD_TYPE=Release
+    - VERBOSE=1 make -j2
     - ./cpp_fast
     - make distclean
-    - cmake -DCMAKE_BUILD_TYPE=Release

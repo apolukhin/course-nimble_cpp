@@ -1,1 +1,0 @@
-/usr/bin/c++   -O3 -DNDEBUG   CMakeFiles/cpp_fast.dir/main.cpp.o  -o cpp_fast -rdynamic benchmark/src/libbenchmark.a -lpthread -lrt 
