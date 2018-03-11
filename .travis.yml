@@ -5,7 +5,6 @@
 # Copyright Antony Polukhin 2014-2018.
 
 sudo: false
-language: cpp
 os: linux
 
 env:
