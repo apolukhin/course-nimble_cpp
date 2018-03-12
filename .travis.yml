@@ -29,6 +29,6 @@ addons:
     - cmake
 
 script:
-    - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LINKER=$CXX
+    - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LINKER=$CXX -DCMAKE_CXX_LINK_EXECUTABLE="<CMAKE_LINKER> <FLAGS> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>"
     - VERBOSE=1 make -j2
     - ./cpp_fast
