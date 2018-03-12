@@ -9,8 +9,8 @@ os: linux
 
 env:
     matrix:
-        - CXXFLAGS="-std=c++11 -fsanitize=address,undefined" CXX=g++-7
-        - CXXFLAGS="-std=c++11" CXX=g++-6
+        - CXXFLAGS="-std=c++11" CXX=g++-7
+        - CXXFLAGS="-std=c++11 -fsanitize=address,undefined" CXX=g++-6
         - CXXFLAGS="-std=c++1y" CXX=g++-7
         - CXXFLAGS="-std=c++14" CXX=g++-6
         - CXXFLAGS="-std=c++11" CXX=clang++
@@ -29,6 +29,6 @@ addons:
     - cmake
 
 script:
-    - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_LINKER=$CXX -DCMAKE_CXX_LINK_EXECUTABLE="<CMAKE_LINKER> <FLAGS> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>"
+    - cmake -DCMAKE_BUILD_TYPE=Release
     - VERBOSE=1 make -j2
     - ./cpp_fast

@@ -8,18 +8,14 @@ image: Visual Studio 2017
 platform: x64
 
 before_build:
-    - echo 1
+    - cmake -DCMAKE_BUILD_TYPE=Release
 build_script:
-    - echo 2
+    - cmake --build . --config Release
 after_build:
-    - echo 3
 
 before_test:
 test_script:
-    - cmake -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --config Release
-    - cpp_fast.exe
-
+    - Release\cpp_fast.exe
 after_test:
 
 on_success:
