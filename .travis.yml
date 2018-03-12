@@ -9,11 +9,12 @@ os: linux
 
 env:
     matrix:
-        - CXXFLAGS="-std=c++11" CXX=g++-7
-        - CXXFLAGS="-std=c++11 -fsanitize=address,undefined" CXX=g++-6
+        - CXXFLAGS="-std=c++11 -fsanitize=address,undefined" LDFLAGS="-fuse-ld=gold" CXX=g++-7
+        - CXXFLAGS="-std=c++11 -fsanitize=address,undefined" LDFLAGS="-fuse-ld=gold" CXX=g++-6
         - CXXFLAGS="-std=c++1y" CXX=g++-7
         - CXXFLAGS="-std=c++14" CXX=g++-6
         - CXXFLAGS="-std=c++11" CXX=clang++
+        - CXXFLAGS="-std=c++11"
         #- CXXFLAGS="-std=c++11 -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
         #- CXXFLAGS="-std=c++1y -stdlib=libc++" LINK_FLAGS="-stdlib=libc++" TOOLSET=clang
 
