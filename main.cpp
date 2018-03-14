@@ -166,7 +166,7 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
 
         for (auto& r: reports) {
             if (!r.report_big_o && !r.report_rms) {
-                AddTimeMeasureToLastBenchmark(r.benchmark_name, first_report.GetAdjustedRealTime());
+                AddTimeMeasureToLastBenchmark(r.benchmark_name, static_cast<int>(first_report.GetAdjustedRealTime()));
             } else if (r.report_big_o) {
                 AddBigOMeasureToLastBenchmark(r.complexity);
             }
