@@ -19,6 +19,6 @@ int optimized_100_to_1000(std::vector<int>& d) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(algorithms, naive_100_to_1000, naive_100_to_1000, naive_100_to_1000)->Range(8, 8<<10)->Complexity();
-BENCHMARK_CAPTURE(algorithms, optim_100_to_1000, optimized_100_to_1000, naive_100_to_1000)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, naive_100_to_1000, naive_100_to_1000, naive_100_to_1000)->Range(8, 8 << 10)->Complexity();
+BENCH(algorithms, optim_100_to_1000, optimized_100_to_1000, naive_100_to_1000)->Range(8, 8 << 10)->Complexity();
 

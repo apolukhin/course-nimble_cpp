@@ -57,12 +57,13 @@ struct ultim_shared_var_t {
 
 template <class Functor>
 static void mt_inc_dec(benchmark::State& state, Functor& f) {
-    const auto func = [&f]() {
-        for (unsigned i = 0; i < ::mt::iteratrions_count / 2; ++i) {
+    const auto iteratrions_count = state.range();
+    const auto func = [&f, iteratrions_count]() {
+        for (unsigned i = 0; i < iteratrions_count / 2; ++i) {
             const int var = f.inc();
             benchmark::DoNotOptimize(var);
         }
-        for (unsigned i = 0; i < ::mt::iteratrions_count / 2; ++i) {
+        for (unsigned i = 0; i < iteratrions_count / 2; ++i) {
             const int var = f.dec();
             benchmark::DoNotOptimize(var);
         }
@@ -75,7 +76,7 @@ static void mt_inc_dec(benchmark::State& state, Functor& f) {
     // std::cerr << "variable == " << f.variable << '\n';
 }
 
-BENCHMARK_CAPTURE(mt_inc_dec, wrong_shared_var, wrong_shared_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCHMARK_CAPTURE(mt_inc_dec, right_shared_var, right_shared_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCHMARK_CAPTURE(mt_inc_dec, super_shared_var, super_shared_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCHMARK_CAPTURE(mt_inc_dec, ultim_shared_var, ultim_shared_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
+BENCH(mt_inc_dec, naive_shared_var, wrong_shared_var)->Unit(benchmark::kMicrosecond)->Arg(8 << 10)->ThreadRange(1, 8);
+BENCH(mt_inc_dec, right_shared_var, right_shared_var)->Unit(benchmark::kMicrosecond)->Arg(8 << 10)->ThreadRange(1, 8);
+BENCH(mt_inc_dec, super_shared_var, super_shared_var)->Unit(benchmark::kMicrosecond)->Arg(8 << 10)->ThreadRange(1, 8);
+BENCH(mt_inc_dec, ultim_shared_var, ultim_shared_var)->Unit(benchmark::kMicrosecond)->Arg(8 << 10)->ThreadRange(1, 8);

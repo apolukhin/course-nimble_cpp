@@ -37,3 +37,4 @@ benchmark/src/generated/
 cmake_install.cmake
 Makefile
 cpp_fast
+CMakeLists.txt.user

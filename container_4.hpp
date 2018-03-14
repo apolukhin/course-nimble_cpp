@@ -86,5 +86,5 @@ using optimized_uptr = std::vector<my_unique_ptr_opt>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_TEMPLATE(containers_insertion, naive_uptr)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(containers_insertion, optimized_uptr)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion, naive_uptr)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion, optimized_uptr)->Range(8, 8<<10);

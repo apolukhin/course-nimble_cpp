@@ -15,5 +15,5 @@ int optimized_99th_perc(std::vector<int>& d) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(algorithms, naive_99th_perc, naive_99th_perc, naive_99th_perc)->Range(8, 8<<10)->Complexity();
-BENCHMARK_CAPTURE(algorithms, optim_99th_perc, optimized_99th_perc, naive_99th_perc)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, naive_99th_perc, naive_99th_perc, naive_99th_perc)->Range(8, 8 << 10)->Complexity();
+BENCH(algorithms, optim_99th_perc, optimized_99th_perc, naive_99th_perc)->Range(8, 8 << 10)->Complexity();

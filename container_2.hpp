@@ -6,7 +6,7 @@
 
 //////////////////////////// TASK 2 ////////////////////////////
 
-static void naive_containers_insertion(benchmark::State& state) {
+static void naive_insertion(benchmark::State& state) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
         std::vector<int> d;
@@ -18,7 +18,7 @@ static void naive_containers_insertion(benchmark::State& state) {
     }
 }
 
-static void optim_containers_insertion(benchmark::State& state) {
+static void optim_insertion(benchmark::State& state) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
         // Optimize
@@ -33,5 +33,5 @@ static void optim_containers_insertion(benchmark::State& state) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK(naive_containers_insertion)->Range(8, 8<<10);
-BENCHMARK(optim_containers_insertion)->Range(8, 8<<10);
+BENCHMARK(naive_insertion)->Range(8, 8<<10);
+BENCHMARK(optim_insertion)->Range(8, 8<<10);

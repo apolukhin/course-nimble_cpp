@@ -9,15 +9,15 @@
 //////////////////////////// TASK 6 ////////////////////////////
 
 using naive_assoc_container = std::unordered_set<int>;
-using optimized_assoc_container = std::set<int>;
+using optim_assoc_container = std::set<int>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_TEMPLATE(containers_iteration, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(containers_iteration, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(iteration, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(iteration, optim_assoc_container)->Range(8, 8<<10);
 
-BENCHMARK_TEMPLATE(containers_search_assoc, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(containers_search_assoc, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(search_assoc, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(search_assoc, optim_assoc_container)->Range(8, 8<<10);
 
-BENCHMARK_TEMPLATE(containers_insertion_assoc, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(containers_insertion_assoc, optimized_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion_assoc, naive_assoc_container)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion_assoc, optim_assoc_container)->Range(8, 8<<10);

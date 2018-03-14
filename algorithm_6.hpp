@@ -2,25 +2,25 @@
 
 //////////////////////////// TASK 5 ////////////////////////////
 
-struct  my_complex {
+struct  naive_complex {
     int real, im;
 
-    ~my_complex() {};
+    ~naive_complex() {};
 };
 
 
-struct  my_complex_opt {
+struct  optim_complex { // TASK: Improve
     int real, im;
 
-    ~my_complex_opt() {};
+    ~optim_complex() {};
 };
 
 
 //////////////////////////// DETAIL ////////////////////////////
 
 template <class T>
-static void measure_copy_speed(benchmark::State& state) {
-    const std::size_t elements_count = state.range(0);
+static void copy_speed(benchmark::State& state) {
+    const std::size_t elements_count = state.range();
     for (auto _ : state) {
         state.PauseTiming();
         std::vector<T> d(elements_count);
@@ -33,6 +33,6 @@ static void measure_copy_speed(benchmark::State& state) {
     }
 }
 
-BENCHMARK_TEMPLATE(measure_copy_speed, my_complex)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(measure_copy_speed, my_complex_opt)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(copy_speed, naive_complex)->Range(8, 8 << 10);
+BENCHMARK_TEMPLATE(copy_speed, optim_complex)->Range(8, 8 << 10);
 

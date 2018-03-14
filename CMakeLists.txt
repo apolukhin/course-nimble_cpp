@@ -15,6 +15,8 @@ include_directories(boost_container)
 
 project(cpp_fast)
 add_executable(${PROJECT_NAME}
+    common.hpp
+
     algorithm_common.hpp
     algorithm_1.hpp
     algorithm_2.hpp
@@ -37,6 +39,7 @@ add_executable(${PROJECT_NAME}
     mt_common.hpp
     mt_1.hpp
     mt_2.hpp
+    mt_3.hpp
 
     main.cpp
     )

@@ -19,6 +19,6 @@ int optimized_10_perc_of_not_bankrupted(std::vector<int>& d) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(algorithms, naive_10_perc_pos, naive_10_perc_of_not_bankrupted, naive_10_perc_of_not_bankrupted)->Range(8, 8<<10)->Complexity();
-BENCHMARK_CAPTURE(algorithms, optim_10_perc_pos, optimized_10_perc_of_not_bankrupted, naive_10_perc_of_not_bankrupted)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, naive_10_perc_pos, naive_10_perc_of_not_bankrupted, naive_10_perc_of_not_bankrupted)->Range(8, 8 << 10)->Complexity();
+BENCH(algorithms, optim_10_perc_pos, optimized_10_perc_of_not_bankrupted, naive_10_perc_of_not_bankrupted)->Range(8, 8 << 10)->Complexity();
 

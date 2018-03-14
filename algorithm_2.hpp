@@ -15,6 +15,6 @@ int optimized_median(std::vector<int>& d) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(algorithms, naive_median, naive_median, naive_median)->Range(8, 8<<10)->Complexity();
-BENCHMARK_CAPTURE(algorithms, optim_median, optimized_median, naive_median)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, naive_median, naive_median, naive_median)->Range(8, 8 << 10)->Complexity();
+BENCH(algorithms, optim_median, optimized_median, naive_median)->Range(8, 8 << 10)->Complexity();
 

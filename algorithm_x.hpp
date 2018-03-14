@@ -17,6 +17,6 @@ int optimized_something(std::vector<int>& d) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_CAPTURE(algorithms, naive_something, naive_something, naive_something)->Range(8, 8<<10)->Complexity();
-BENCHMARK_CAPTURE(algorithms, optim_something, optimized_something, naive_something)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, naive_something, naive_something, naive_something)->Range(8, 8<<10)->Complexity();
+BENCH(algorithms, optim_something, optimized_something, naive_something)->Range(8, 8<<10)->Complexity();
 

@@ -34,5 +34,5 @@ using optimized_array = std::vector<my_array_opt>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_TEMPLATE(containers_insertion, naive_array)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(containers_insertion, optimized_array)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion, naive_array)->Range(8, 8<<10);
+BENCHMARK_TEMPLATE(insertion, optimized_array)->Range(8, 8<<10);

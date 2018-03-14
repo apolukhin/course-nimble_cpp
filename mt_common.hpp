@@ -2,10 +2,9 @@
 
 #include <mutex>
 #include <atomic>
+#include <thread>
+#include <condition_variable>
 #include <iostream>
 
-#include <benchmark/benchmark.h>
+#include "common.hpp"
 
-namespace mt {
-    constexpr auto iteratrions_count = 8 << 10;
-}

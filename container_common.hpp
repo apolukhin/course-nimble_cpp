@@ -5,27 +5,17 @@
 #include <vector>
 #include "algorithm_common.hpp"
 
-#include <benchmark/benchmark.h>
+#include "common.hpp"
 
 
 ////////////////////////////////////////////////////////////////
 //////////////////////////// DETAIL ////////////////////////////
 ////////////////////////////////////////////////////////////////
 
-template <class T>
-static void fill_container_simple(T& c, std::size_t size) {
-    std::default_random_engine e1;
-    std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
-
-    c.clear();
-    for (std::size_t i = 0; i < size; ++i) {
-        c.insert(c.end(), uniform_dist(e1));
-    }
-}
 
 
 template <class Type>
-static void containers_iteration(benchmark::State& state) {
+static void iteration(benchmark::State& state) {
     for (auto _ : state) {
         state.PauseTiming();
         Type d;
@@ -43,7 +33,7 @@ static void containers_iteration(benchmark::State& state) {
 }
 
 template <class Type>
-static void containers_insertion(benchmark::State& state) {
+static void insertion(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
@@ -58,7 +48,7 @@ static void containers_insertion(benchmark::State& state) {
 }
 
 template <class Type>
-static void containers_insertion_assoc(benchmark::State& state) {
+static void insertion_assoc(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
@@ -73,7 +63,7 @@ static void containers_insertion_assoc(benchmark::State& state) {
 }
 
 template <class Type>
-static void containers_search_assoc(benchmark::State& state) {
+static void search_assoc(benchmark::State& state) {
     Type d;
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
