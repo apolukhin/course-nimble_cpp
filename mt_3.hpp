@@ -42,9 +42,9 @@ class optim_queue_t {
 public:
     using value_type = T;
 
-    void push(T val) {
+    void push(const T& val) {
         std::lock_guard<std::mutex> l{mutex_};
-        data_.push_back(std::move(val));
+        data_.push_back(val);
         cond_.notify_one();
     }
 
@@ -54,7 +54,7 @@ public:
             cond_.wait(lock);
         }
 
-        T res = std::move(data_.front());
+        T res = data_.front();
         data_.pop_front();
 
         return res;
@@ -100,7 +100,7 @@ template <class Queue, class T>
 static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
     const std::size_t iterations_count = 8 << 12;
 
-    const auto readers_count = state.range(0);
+    const std::size_t readers_count = state.range(0);
     const auto pop_in_loop = [&q, readers_count, iterations_count](){
         for (unsigned i = 0; i < iterations_count / readers_count; ++i) {
             const auto val = q.pop();
@@ -108,7 +108,7 @@ static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
         }
     };
 
-    const auto writers_count = state.range(1);
+    const std::size_t writers_count = state.range(1);
     const auto push_in_loop = [&q, writers_count, &init_val, iterations_count](){
         for (unsigned i = 0; i < iterations_count / writers_count; ++i) {
             q.push(init_val);

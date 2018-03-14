@@ -4,13 +4,13 @@
 
 int naive_99th_perc(std::vector<int>& d) {
     std::stable_sort(d.begin(), d.end());
-    return *(d.begin() + d.size() * 0.99);
+    return *(d.begin() + static_cast<std::size_t>(d.size() * 0.99));
 }
 
 int optimized_99th_perc(std::vector<int>& d) {
     // TASK: Improve
     std::stable_sort(d.begin(), d.end());
-    return *(d.begin() + d.size() * 0.99);
+    return *(d.begin() + static_cast<std::size_t>(d.size() * 0.99));
 }
 
 

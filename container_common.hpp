@@ -37,10 +37,11 @@ static void insertion(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
+    const std::size_t iterations_count = state.range(0);
     for (auto _ : state) {
         Type d;
         d.clear();
-        for (std::size_t i = 0; i < state.range(0); ++i) {
+        for (std::size_t i = 0; i < iterations_count; ++i) {
             d.insert(d.end(), uniform_dist(e1));
         }
         benchmark::DoNotOptimize(d);
@@ -52,10 +53,11 @@ static void insertion_assoc(benchmark::State& state) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
+    const std::size_t iterations_count = state.range(0);
     for (auto _ : state) {
         Type d;
         d.clear();
-        for (std::size_t i = 0; i < state.range(0); ++i) {
+        for (std::size_t i = 0; i < iterations_count; ++i) {
             d.insert(uniform_dist(e1));
         }
         benchmark::DoNotOptimize(d);
@@ -69,7 +71,8 @@ static void search_assoc(benchmark::State& state) {
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     d.clear();
-    for (std::size_t i = 0; i < state.range(0); ++i) {
+    const std::size_t iterations_count = state.range(0);
+    for (std::size_t i = 0; i < iterations_count; ++i) {
         d.insert(uniform_dist(e1));
     }
 

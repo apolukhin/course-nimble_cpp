@@ -4,13 +4,13 @@
 
 int naive_median(std::vector<int>& d) {
     std::stable_sort(d.begin(), d.end());
-    return *(d.begin() + d.size() * 0.5);
+    return *(d.begin() + (d.size() >> 1));
 }
 
 int optimized_median(std::vector<int>& d) {
     // TASK: Improve
     std::stable_sort(d.begin(), d.end());
-    return *(d.begin() + d.size() * 0.5);
+    return *(d.begin() + (d.size() >> 1));
 }
 
 
