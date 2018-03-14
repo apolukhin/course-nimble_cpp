@@ -37,12 +37,12 @@ enum class bench_t {
 template <class Functor>
 static void mt_load_store(benchmark::State& state, bench_t t, Functor& f) {
     const std::size_t iteratrions_count = 8 << 10;
-    const auto do_stores = [&f](){
+    const auto do_stores = [&f,iteratrions_count](){
         for (unsigned i = 0; i < iteratrions_count; ++i) {
             f.store(i);
         }
     };
-    const auto do_loads = [&f](){
+    const auto do_loads = [&f,iteratrions_count](){
         for (unsigned i = 0; i < iteratrions_count; ++i) {
             const int val = f.load();
             benchmark::DoNotOptimize(val);

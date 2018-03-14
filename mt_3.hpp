@@ -98,20 +98,19 @@ ultim_queue_t<std::vector<int>> ultim_queue;
 
 template <class Queue, class T>
 static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
-    constexpr std::size_t additional_multiplier = 64;
-    constexpr std::size_t iterations_count = 8 << 10;
+    const std::size_t iterations_count = 8 << 12;
 
     const auto readers_count = state.range(0);
-    const auto pop_in_loop = [&q, readers_count](){
-        for (unsigned i = 0; i < iterations_count * additional_multiplier / readers_count; ++i) {
+    const auto pop_in_loop = [&q, readers_count, iterations_count](){
+        for (unsigned i = 0; i < iterations_count / readers_count; ++i) {
             const auto val = q.pop();
             benchmark::DoNotOptimize(val);
         }
     };
 
     const auto writers_count = state.range(1);
-    const auto push_in_loop = [&q, writers_count, &init_val](){
-        for (unsigned i = 0; i < iterations_count * additional_multiplier / writers_count; ++i) {
+    const auto push_in_loop = [&q, writers_count, &init_val, iterations_count](){
+        for (unsigned i = 0; i < iterations_count / writers_count; ++i) {
             q.push(init_val);
         }
     };

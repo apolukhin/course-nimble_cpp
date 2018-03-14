@@ -57,7 +57,7 @@ struct ultim_shared_var_t {
 
 template <class Functor>
 static void mt_inc_dec(benchmark::State& state, Functor& f) {
-    const auto iteratrions_count = state.range();
+    const std::size_t iteratrions_count = state.range();
     const auto func = [&f, iteratrions_count]() {
         for (unsigned i = 0; i < iteratrions_count / 2; ++i) {
             const int var = f.inc();
