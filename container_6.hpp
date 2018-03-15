@@ -13,11 +13,11 @@ using optim_assoc_container = std::set<int>;
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK_TEMPLATE(iteration, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(iteration, optim_assoc_container)->Range(8, 8<<10);
+BENCH(iteration, naive_assoc_container_iteration, naive_assoc_container{})->Range(8, 8<<10);
+BENCH(iteration, optim_assoc_container_iteration, optim_assoc_container{})->Range(8, 8<<10);
 
-BENCHMARK_TEMPLATE(search_assoc, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(search_assoc, optim_assoc_container)->Range(8, 8<<10);
+BENCH(search_assoc, naive_assoc_container_search, naive_assoc_container{})->Range(8, 8<<10);
+BENCH(search_assoc, optim_assoc_container_search, optim_assoc_container{})->Range(8, 8<<10);
 
-BENCHMARK_TEMPLATE(insertion_assoc, naive_assoc_container)->Range(8, 8<<10);
-BENCHMARK_TEMPLATE(insertion_assoc, optim_assoc_container)->Range(8, 8<<10);
+BENCH(insertion_assoc, naive_assoc_container_insertion, naive_assoc_container{})->Range(8, 8<<10);
+BENCH(insertion_assoc, optim_assoc_container_insertion, optim_assoc_container{})->Range(8, 8<<10);

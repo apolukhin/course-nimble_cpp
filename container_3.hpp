@@ -6,7 +6,7 @@
 
 //////////////////////////// TASK 3 ////////////////////////////
 
-static void naive_containers_erase(benchmark::State& state) {
+static void naive_containers_erase(benchmark::State& state, int) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
         state.PauseTiming();
@@ -21,7 +21,7 @@ static void naive_containers_erase(benchmark::State& state) {
     }
 }
 
-static void optim_containers_erase(benchmark::State& state) {
+static void optim_containers_erase(benchmark::State& state, int) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
         state.PauseTiming();
@@ -39,5 +39,5 @@ static void optim_containers_erase(benchmark::State& state) {
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCHMARK(naive_containers_erase)->Range(8, 8<<10);
-BENCHMARK(optim_containers_erase)->Range(8, 8<<10);
+BENCH(naive_containers_erase, naive_containers_erase, 0)->Range(8, 8<<10);
+BENCH(optim_containers_erase, optim_containers_erase, 0)->Range(8, 8<<10);

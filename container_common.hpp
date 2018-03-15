@@ -15,7 +15,7 @@
 
 
 template <class Type>
-static void iteration(benchmark::State& state) {
+static void iteration(benchmark::State& state, const Type& /*container_type*/) {
     for (auto _ : state) {
         state.PauseTiming();
         Type d;
@@ -33,7 +33,7 @@ static void iteration(benchmark::State& state) {
 }
 
 template <class Type>
-static void insertion(benchmark::State& state) {
+static void insertion(benchmark::State& state, const Type& /*container_type*/) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
@@ -49,7 +49,7 @@ static void insertion(benchmark::State& state) {
 }
 
 template <class Type>
-static void insertion_assoc(benchmark::State& state) {
+static void insertion_assoc(benchmark::State& state, const Type& /*container_type*/) {
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
@@ -65,7 +65,7 @@ static void insertion_assoc(benchmark::State& state) {
 }
 
 template <class Type>
-static void search_assoc(benchmark::State& state) {
+static void search_assoc(benchmark::State& state, const Type& /*container_type*/) {
     Type d;
     std::default_random_engine e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);

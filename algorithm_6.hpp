@@ -19,7 +19,7 @@ struct  optim_complex { // TASK: Improve
 //////////////////////////// DETAIL ////////////////////////////
 
 template <class T>
-static void copy_speed(benchmark::State& state) {
+static void copy_speed(benchmark::State& state, const T& /*data_type*/) {
     const std::size_t elements_count = state.range();
     for (auto _ : state) {
         state.PauseTiming();
@@ -33,6 +33,6 @@ static void copy_speed(benchmark::State& state) {
     }
 }
 
-BENCHMARK_TEMPLATE(copy_speed, naive_complex)->Range(8, 8 << 10);
-BENCHMARK_TEMPLATE(copy_speed, optim_complex)->Range(8, 8 << 10);
+BENCH(copy_speed, naive_copy_speed, naive_complex{})->Range(8, 8 << 10);
+BENCH(copy_speed, optim_copy_speed, optim_complex{})->Range(8, 8 << 10);
 
