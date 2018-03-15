@@ -3,13 +3,13 @@
 //////////////////////////// TASK 2 ////////////////////////////
 
 int naive_median(std::vector<int>& d) {
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     return *(d.begin() + (d.size() >> 1));
 }
 
 int optimized_median(std::vector<int>& d) {
     // TASK: Improve
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     return *(d.begin() + (d.size() >> 1));
 }
 

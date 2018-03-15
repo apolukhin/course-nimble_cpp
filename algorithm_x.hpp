@@ -3,14 +3,14 @@
 //////////////////////////// TASK 3 ////////////////////////////
 
 int naive_something(std::vector<int>& d) {
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     // ...
     return *d.begin();
 }
 
 int optimized_something(std::vector<int>& d) {
     // TASK: Improve
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     // ...
     return *d.begin();
 }

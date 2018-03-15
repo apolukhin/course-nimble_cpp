@@ -3,7 +3,7 @@
 //////////////////////////// TASK 4 ////////////////////////////
 
 int naive_100_to_1000(std::vector<int>& d) {
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     auto it1 = std::lower_bound(d.begin(), d.end(), 100);
     auto it2 = std::lower_bound(d.begin(), d.end(), 1000);
     return it2 - it1;
@@ -11,7 +11,7 @@ int naive_100_to_1000(std::vector<int>& d) {
 
 int optimized_100_to_1000(std::vector<int>& d) {
     // TASK: Improve
-    std::stable_sort(d.begin(), d.end());
+    std::sort(d.begin(), d.end());
     auto it1 = std::lower_bound(d.begin(), d.end(), 100);
     auto it2 = std::lower_bound(d.begin(), d.end(), 1000);
     return it2 - it1;

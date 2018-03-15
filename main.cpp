@@ -101,8 +101,8 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
             for (const auto& bench: suite_) {
                 const measure_t& measure = bench.measures[i];
                 if (measure.complexity == benchmark::oNone) {
-                    const double perc_from_initial =  measure.time * 1.0 / suite_.front().measures[i].time;
-                    GetOutputStream() << std::setw(max_column_width) << std::setprecision(2) << perc_from_initial;
+                    const double rel = suite_.front().measures[i].time / measure.time * 1.0;
+                    GetOutputStream() << std::setw(max_column_width) << std::fixed << std::setprecision(2) << rel;
                 } else {
                     GetOutputStream() << std::setw(max_column_width) << ::benchmark::GetBigOString(measure.complexity);
                 }

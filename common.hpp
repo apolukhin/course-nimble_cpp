@@ -8,5 +8,5 @@
       (::benchmark::internal::RegisterBenchmarkInternal( \
           new ::benchmark::internal::FunctionBenchmark(  \
               #test_case_name,                           \
-    [](::benchmark::State& st) { func(st, __VA_ARGS__); })))
+    [](::benchmark::State& st) { func(st, __VA_ARGS__); })))->Iterations(2000)
 
