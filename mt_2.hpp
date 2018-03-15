@@ -57,9 +57,9 @@ static void mt_load_store(benchmark::State& state, bench_t t, Functor& f) {
 
 }
 
-BENCH(mt_load_store, naive_LOAD, bench_t::LOAD, naive_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCH(mt_load_store, optim_LOAD, bench_t::LOAD, optim_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCH(mt_load_store, naive_STORE, bench_t::STORE, naive_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCH(mt_load_store, optim_STORE, bench_t::STORE, optim_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCH(mt_load_store, naive_MIXED, bench_t::LOAD_STORE, naive_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
-BENCH(mt_load_store, optim_MIXED, bench_t::LOAD_STORE, optim_read_write_var)->Unit(benchmark::kMicrosecond)->ThreadRange(1, 8);
+BENCH(mt_load_store, naive_LOAD, bench_t::LOAD, naive_read_write_var)->ThreadRange(1, 8);
+BENCH(mt_load_store, optim_LOAD, bench_t::LOAD, optim_read_write_var)->ThreadRange(1, 8);
+BENCH(mt_load_store, naive_STORE, bench_t::STORE, naive_read_write_var)->ThreadRange(1, 8);
+BENCH(mt_load_store, optim_STORE, bench_t::STORE, optim_read_write_var)->ThreadRange(1, 8);
+BENCH(mt_load_store, naive_MIXED, bench_t::LOAD_STORE, naive_read_write_var)->ThreadRange(1, 8);
+BENCH(mt_load_store, optim_MIXED, bench_t::LOAD_STORE, optim_read_write_var)->ThreadRange(1, 8);

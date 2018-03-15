@@ -98,7 +98,7 @@ ultim_queue_t<std::vector<int>> ultim_queue;
 
 template <class Queue, class T>
 static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
-    const std::size_t iterations_count = 8 << 12;
+    const std::size_t iterations_count = 8 << 8;
 
     const std::size_t readers_count = state.range(0);
     const auto pop_in_loop = [&q, readers_count, iterations_count](){
@@ -146,6 +146,6 @@ static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
 
 const std::vector<int> init_value{1, 2, 42, 314};
 
-BENCH(mt_queue, naive/rw, naive_queue, init_value)->Unit(benchmark::kMillisecond)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
-BENCH(mt_queue, optim/rw, optim_queue, init_value)->Unit(benchmark::kMillisecond)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
-BENCH(mt_queue, ultim/rw, ultim_queue, init_value)->Unit(benchmark::kMillisecond)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
+BENCH(mt_queue, naive/rw, naive_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
+BENCH(mt_queue, optim/rw, optim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
+BENCH(mt_queue, ultim/rw, ultim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();

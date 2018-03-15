@@ -90,7 +90,7 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
 
         GetOutputStream() << '\n';
 
-        std::size_t min_measures = 99999;
+        std::size_t min_measures = static_cast<std::size_t>(-1);
         for (const auto& bench: suite_) {
             min_measures = (std::min)(min_measures, bench.measures.size());
         }
@@ -116,6 +116,9 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
     void AddNewBenchmarkToSuite(const std::string& benchmark_name) {
         suite_.emplace_back();
         suite_.back().name = benchmark_name.substr(0, benchmark_name.find('/'));
+
+        const auto pos = suite_.back().name.find("iterations:");
+        suite_.back().name.erase(pos, suite_.back().name.find("/", pos));
     }
 
     void StartNewSuite() {
