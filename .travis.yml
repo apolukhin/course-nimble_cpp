@@ -32,3 +32,6 @@ script:
     - cmake -DCMAKE_BUILD_TYPE=Release
     - VERBOSE=1 make -j2
     - ./cpp_fast
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash) -f "!benchmark/" -f "!boost_container/"
