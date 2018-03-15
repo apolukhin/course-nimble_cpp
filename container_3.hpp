@@ -19,6 +19,7 @@ static void naive_containers_erase(benchmark::State& state, int) {
         }
         benchmark::DoNotOptimize(d);
     }
+    state.SetComplexityN(state.range(0));
 }
 
 static void optim_containers_erase(benchmark::State& state, int) {
@@ -35,9 +36,10 @@ static void optim_containers_erase(benchmark::State& state, int) {
         }
         benchmark::DoNotOptimize(d);
     }
+    state.SetComplexityN(state.range(0));
 }
 
 
 //////////////////////////// DETAIL ////////////////////////////
-BENCH(naive_containers_erase, naive_containers_erase, 0)->Range(8, 8<<10);
-BENCH(optim_containers_erase, optim_containers_erase, 0)->Range(8, 8<<10);
+BENCH(naive_containers_erase, naive_containers_erase, 0)->Range(8, 8<<8)->Complexity();
+BENCH(optim_containers_erase, optim_containers_erase, 0)->Range(8, 8<<8)->Complexity();

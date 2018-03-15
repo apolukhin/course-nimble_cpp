@@ -22,13 +22,12 @@ static void iteration(benchmark::State& state, const Type& /*container_type*/) {
         fill_container_simple(d, state.range(0));
         state.ResumeTiming();
 
-        for (unsigned i = 0; i < 10000; ++i) {
-            int sum = 0;
-            for (auto v: d) {
-                sum += v; // Measuring this call
-            }
-            benchmark::DoNotOptimize(sum);
+        int sum = 0;
+        for (auto v: d) {
+            sum += v; // Measuring this call
         }
+        benchmark::DoNotOptimize(sum);
+
     }
 }
 
