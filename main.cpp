@@ -101,7 +101,7 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
             for (const auto& bench: suite_) {
                 const measure_t& measure = bench.measures[i];
                 if (measure.complexity == benchmark::oNone) {
-                    const double rel = suite_.front().measures[i].time / measure.time * 1.0;
+                    const double rel = suite_.front().measures[i].time * 1.0 / measure.time;
                     GetOutputStream() << std::setw(max_column_width) << std::fixed << std::setprecision(2) << rel;
                 } else {
                     GetOutputStream() << std::setw(max_column_width) << ::benchmark::GetBigOString(measure.complexity);
@@ -116,9 +116,6 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
     void AddNewBenchmarkToSuite(const std::string& benchmark_name) {
         suite_.emplace_back();
         suite_.back().name = benchmark_name.substr(0, benchmark_name.find('/'));
-
-        const auto pos = suite_.back().name.find("iterations:");
-        suite_.back().name.erase(pos, suite_.back().name.find("/", pos));
     }
 
     void StartNewSuite() {
@@ -131,8 +128,22 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
             ++ pos;
         }
 
+        std::string measure_name = benchmark_name.substr(pos);
+        const auto pos_iter = measure_name.find("iterations");
+        if (pos_iter != std::string::npos) {
+            auto end = suite_.back().name.find("/", pos);
+            if (end != std::string::npos) {
+                end = end - pos_iter;
+            }
+            measure_name.erase(pos_iter, end);
+        }
+
+        while (measure_name.back() == '/') {
+            measure_name.pop_back();
+        }
+
         suite_.back().measures.push_back(measure_t{
-            benchmark_name.substr(pos),
+            std::move(measure_name),
             t,
             ::benchmark::oNone
         });

@@ -38,3 +38,6 @@ cmake_install.cmake
 Makefile
 cpp_fast
 CMakeLists.txt.user
+benchmark/benchmark.cbp
+cpp_fast.cbp
+
