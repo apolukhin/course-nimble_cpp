@@ -1,16 +1,16 @@
-#include "algorithm_common.hpp"
+#include "util.hpp"
 
 //////////////////////////// TASK 3 ////////////////////////////
 
 int naive_bankrupted(std::vector<int>& d) {
     std::sort(d.begin(), d.end());
-    return std::find_if(d.begin(), d.end(), [](int val) { return val < 0; }) - d.begin();
+    return std::find_if(d.begin(), d.end(), [](int val) { return val > 0; }) - d.begin();
 }
 
 int optimized_bankrupted(std::vector<int>& d) {
     // TASK: Improve
     std::sort(d.begin(), d.end());
-    return std::find_if(d.begin(), d.end(), [](int val) { return val < 0; }) - d.begin();
+    return std::find_if(d.begin(), d.end(), [](int val) { return val > 0; }) - d.begin();
 }
 
 

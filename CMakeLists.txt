@@ -15,9 +15,8 @@ include_directories(boost_container)
 
 project(cpp_fast)
 add_executable(${PROJECT_NAME}
-    common.hpp
+    0_conf.hpp
 
-    algorithm_common.hpp
     algorithm_1.hpp
     algorithm_2.hpp
     algorithm_3.hpp
@@ -27,7 +26,6 @@ add_executable(${PROJECT_NAME}
     algorithm_x.hpp
 
 
-    container_common.hpp
     container_1.hpp
     container_2.hpp
     container_3.hpp
@@ -36,11 +34,11 @@ add_executable(${PROJECT_NAME}
     container_6.hpp
     container_7.hpp
 
-    mt_common.hpp
     mt_1.hpp
     mt_2.hpp
     mt_3.hpp
 
-    main.cpp
+    util.hpp
+    x_start.cpp
     )
 target_link_libraries(${PROJECT_NAME} benchmark)

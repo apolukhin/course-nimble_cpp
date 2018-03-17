@@ -1,49 +1,7 @@
-////////////////////////////////////////////////////////
-/// You might want to disable the CPU frequency scaling while running the benchmark:
-///
-///     sudo apt-get install linux-tools-common             # sudo apt-get install linux-tools-3.19.0-80-generic
-///     sudo cpupower frequency-set --governor performance
-///     ./mybench
-///     sudo cpupower frequency-set --governor powersave
-///
-///
-
-
-////////////////////////////// Section 1
-#include "algorithm_1.hpp"
-#include "algorithm_2.hpp"
-#include "algorithm_3.hpp"
-#include "algorithm_4.hpp"
-#include "algorithm_5.hpp"
-#include "algorithm_6.hpp"
-#include "algorithm_x.hpp"
-
-////////////////////////////// Section 2
-#include "container_1.hpp"
-#include "container_2.hpp"
-#include "container_3.hpp"
-
-////////////////////////////// Section 2, vector features
-#include "container_4.hpp"
-#include "container_5.hpp"
-
-////////////////////////////// Section 2, associative
-#include "container_6.hpp"
-#include "container_7.hpp"
-
-
-////////////////////////////// Section 3, multithreading
-#include "mt_1.hpp"
-#include "mt_2.hpp"
-#include "mt_3.hpp"
-
-
-
-
-
 //////////////////////////// DETAIL ////////////////////////////
-#include <iostream>
-#include <iomanip>
+
+#include "0_conf.hpp"
+
 
 namespace benchmark {
     std::string GetBigOString(BigO complexity);
@@ -129,18 +87,30 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
         }
 
         std::string measure_name = benchmark_name.substr(pos);
-        const auto pos_iter = measure_name.find("iterations");
-        if (pos_iter != std::string::npos) {
-            auto end = suite_.back().name.find("/", pos);
-            if (end != std::string::npos) {
-                end = end - pos_iter;
+        for (const char* skip: {"iterations", "min_time"}) {
+            const auto pos_iter = measure_name.find(skip);
+            if (pos_iter != std::string::npos) {
+                auto end = measure_name.find("/", pos_iter);
+                if (end != std::string::npos) {
+                    end = end - pos_iter;
+                }
+                measure_name.erase(pos_iter, end);
             }
-            measure_name.erase(pos_iter, end);
         }
 
         while (measure_name.back() == '/') {
             measure_name.pop_back();
         }
+        while (measure_name.front() == '/') {
+            measure_name.erase(measure_name.begin());
+        }
+        do {
+            const auto pos_dbl = measure_name.find("//");
+            if (pos_dbl == std::string::npos) {
+                break;
+            }
+            measure_name.erase(pos_dbl, 1);
+        } while(1);
 
         suite_.back().measures.push_back(measure_t{
             std::move(measure_name),
@@ -198,6 +168,8 @@ public:
         PrintSuiteInfo();
     }
 };
+
+
 
 int main(int argc, char** argv) {
     ::benchmark::Initialize(&argc, argv);

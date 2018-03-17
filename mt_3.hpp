@@ -1,4 +1,4 @@
-#include "mt_common.hpp"
+#include "util.hpp"
 
 #include <deque>
 
@@ -98,7 +98,7 @@ ultim_queue_t<std::vector<int>> ultim_queue;
 
 template <class Queue, class T>
 static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
-    const std::size_t iterations_count = 1 << 6;
+    const std::size_t iterations_count = 8 << 10;
 
     const std::size_t readers_count = state.range(0);
     const auto pop_in_loop = [&q, readers_count, iterations_count](){
