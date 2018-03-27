@@ -6,6 +6,7 @@ else ()
     set (CMAKE_CXX_STANDARD 11)
 endif ()
 
+option (CMAKE_SUPPRESS_REGENERATION "Suppress the cmake macro that causes regeneration of build scripts during build" ON)
 
 SET(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "Do not build benchmark tests" FORCE)
 SET(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE BOOL "Do not use GTest for benchmark tests" FORCE)
