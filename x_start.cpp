@@ -27,7 +27,7 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
 
         GetOutputStream() << "*** Results:\n";
 
-        constexpr std::size_t gap_between_columns = 3; // Separate benchmark names by at least 3 whitespaces
+        const std::size_t gap_between_columns = 3; // Separate benchmark names by at least 3 whitespaces
 
         std::size_t first_column_width = sizeof("measure") - 1;
         for (const auto& m: suite_.front().measures) {
