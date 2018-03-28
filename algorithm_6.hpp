@@ -5,14 +5,24 @@
 struct  naive_complex {
     int real, im;
 
-    ~naive_complex() {};
+    naive_complex() {}
+    naive_complex(const naive_complex& nc)
+        : real(nc.real)
+        , im(nc.im)
+    {}
+    ~naive_complex(){}
 };
 
 
 struct  optim_complex { // TASK: Improve
     int real, im;
 
-    ~optim_complex() {};
+    optim_complex() {}
+    optim_complex(const optim_complex& nc)
+        : real(nc.real)
+        , im(nc.im)
+    {}
+    ~optim_complex() {}
 };
 
 
