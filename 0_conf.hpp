@@ -18,7 +18,7 @@
 ///     ->Unit(kMicrosecond)
 ///     ->Unit(kMillisecond)
 
-#define COURSE_GLOBAL_ARGS() ->Iterations(500)
+#define COURSE_GLOBAL_ARGS() ->Iterations(50)
 
 
 ////////////////////////////////////////////////////////
