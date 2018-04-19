@@ -14,5 +14,5 @@ using optimized_container = std::vector<int>;
 BENCH(iteration, naive_container_iteration, naive_container{})->Range(8, 8<<10);
 BENCH(iteration, optim_container_iteration, optimized_container{})->Range(8, 8<<10);
 
-BENCH(insertion, naive_container_iteration, naive_container{})->Range(8, 8<<10);
-BENCH(insertion, optim_container_iteration, optimized_container{})->Range(8, 8<<10);
+BENCH(insertion, naive_container_insertion, naive_container{})->Range(8, 8<<10);
+BENCH(insertion, optim_container_insertion, optimized_container{})->Range(8, 8<<10);
