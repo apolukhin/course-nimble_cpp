@@ -27,8 +27,8 @@ public:
     }
 
     my_unique_ptr& operator=(const my_unique_ptr& p) {
-        delete data_;
-        data_ = (p.data_ ? new int{*p.data_} : nullptr);
+        my_unique_ptr tmp(p);
+        std::swap(tmp.data_, data_);
         return *this;
     }
 
@@ -64,8 +64,8 @@ public:
     }
 
     my_unique_ptr_opt& operator=(const my_unique_ptr_opt& p) {
-        delete data_;
-        data_ = (p.data_ ? new int{*p.data_} : nullptr);
+        my_unique_ptr_opt tmp(p);
+        std::swap(p.data_, data_);
         return *this;
     }
 
