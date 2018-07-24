@@ -65,7 +65,7 @@ public:
 
     my_unique_ptr_opt& operator=(const my_unique_ptr_opt& p) {
         my_unique_ptr_opt tmp(p);
-        std::swap(p.data_, data_);
+        std::swap(tmp.data_, data_);
         return *this;
     }
 
