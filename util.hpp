@@ -30,7 +30,7 @@
 
 template <class T>
 inline void fill_container_impl(T& c, std::size_t size) {
-    std::default_random_engine e1;
+    std::minstd_rand e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     c.clear();
@@ -97,7 +97,7 @@ static void iteration(benchmark::State& state, const Type& /*container_type*/) {
 
 template <class Type>
 static void insertion(benchmark::State& state, const Type& /*container_type*/) {
-    std::default_random_engine e1;
+    std::minstd_rand e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     const std::size_t iterations_count = state.range(0);
@@ -113,7 +113,7 @@ static void insertion(benchmark::State& state, const Type& /*container_type*/) {
 
 template <class Type>
 static void insertion_assoc(benchmark::State& state, const Type& /*container_type*/) {
-    std::default_random_engine e1;
+    std::minstd_rand e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     const std::size_t iterations_count = state.range(0);
@@ -130,7 +130,7 @@ static void insertion_assoc(benchmark::State& state, const Type& /*container_typ
 template <class Type>
 static void search_assoc(benchmark::State& state, const Type& /*container_type*/) {
     Type d;
-    std::default_random_engine e1;
+    std::minstd_rand e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
 
     d.clear();
