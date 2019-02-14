@@ -91,7 +91,7 @@ static vs_type generate_filter_optim(std::size_t elements_count) {
 
 //////////////////////////// DETAIL ////////////////////////////
 
-template <Generator>
+template <class Generator>
 static void mesure_generate_and_filter(benchmark::State& state, Generator generator) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
