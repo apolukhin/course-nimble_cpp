@@ -4,7 +4,7 @@
 #include <deque>
 #include <list>
 
-//////////////////////////// TASK 2 ////////////////////////////
+//////////////////////////// TASK 3 ////////////////////////////
 
 static void naive_insertion(benchmark::State& state, int) {
     const std::size_t elements_count = state.range(0);

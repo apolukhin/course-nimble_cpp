@@ -4,7 +4,7 @@
 #include <deque>
 #include <list>
 
-//////////////////////////// TASK 3 ////////////////////////////
+//////////////////////////// TASK 2 ////////////////////////////
 
 static void naive_containers_erase(benchmark::State& state, int) {
     const std::size_t elements_count = state.range(0);
