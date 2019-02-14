@@ -64,13 +64,13 @@ struct ultim_shared_var_t {
 
 template <class Functor>
 static void mt_inc_dec(benchmark::State& state, Functor& f) {
-    const std::size_t iteratrions_count = state.range();
-    const auto func = [&f, iteratrions_count]() {
-        for (unsigned i = 0; i < iteratrions_count / 2; ++i) {
+    const std::size_t iterations_count = state.range();
+    const auto func = [&f, iterations_count]() {
+        for (unsigned i = 0; i < iterations_count / 2; ++i) {
             const int var = f.inc();
             benchmark::DoNotOptimize(var);
         }
-        for (unsigned i = 0; i < iteratrions_count / 2; ++i) {
+        for (unsigned i = 0; i < iterations_count / 2; ++i) {
             const int var = f.dec();
             benchmark::DoNotOptimize(var);
         }
