@@ -49,6 +49,9 @@ static vs_type filter_naive(vs_type generated) {
     return dest;
 }
 
+static vs_type generate_filter_naive(std::size_t elements_count) {
+    return filter_naive(generate_naive(elements_count));
+}
 
 
 static vs_type generate_optim(std::size_t elements_count) {
@@ -82,17 +85,21 @@ static vs_type filter_optim(vs_type generated) {
     return dest;
 }
 
+static vs_type generate_filter_optim(std::size_t elements_count) {
+    return filter_optim(generate_optim(elements_count));
+}
+
 //////////////////////////// DETAIL ////////////////////////////
 
-template <class Filter, class Generator>
-static void mesure_generate_and_filter(benchmark::State& state, Filter filter, Generator generator) {
+template <Generator>
+static void mesure_generate_and_filter(benchmark::State& state, Generator generator) {
     const std::size_t elements_count = state.range(0);
     for (auto _ : state) {
-        vs_type dest = filter(generator(elements_count));
+        vs_type dest = generator(elements_count);
 
         state.PauseTiming();
-        if (filter != filter_naive && generator != generate_naive) {
-            if(dest != filter_naive(generate_naive(elements_count))) {
+        if (generator != generate_filter_naive) {
+            if (dest != generate_filter_naive(elements_count)) {
                 throw std::runtime_error("values missmatch");
             }
         }
@@ -101,5 +108,5 @@ static void mesure_generate_and_filter(benchmark::State& state, Filter filter, G
     }
 }
 
-BENCH(mesure_generate_and_filter, generate_and_filter_naive, &filter_naive, &generate_naive)->Range(8, 8<<10);
-BENCH(mesure_generate_and_filter, generate_and_filter_optim, &filter_optim, &generate_optim)->Range(8, 8<<10);
+BENCH(mesure_generate_and_filter, generate_and_filter_naive, &generate_filter_naive)->Range(8, 8<<10);
+BENCH(mesure_generate_and_filter, generate_and_filter_optim, &generate_filter_optim)->Range(8, 8<<10);
