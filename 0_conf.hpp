@@ -12,7 +12,7 @@
 
 ////////////////////////////////////////////////////////
 /// Those args will be applied to all the benchmarks runs.
-/// Usefull values are
+/// Useful values are
 ///     ->Iterations(2000)
 ///     ->MinTime(0.1)
 ///     ->Unit(kMicrosecond)
