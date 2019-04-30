@@ -22,10 +22,40 @@
       (::benchmark::internal::RegisterBenchmarkInternal(        \
           new ::benchmark::internal::FunctionBenchmark(         \
               #test_case_name,                                  \
-    [](::benchmark::State& st) { func(st, __VA_ARGS__); })))    \
+              [](::benchmark::State& st) {                      \
+                  FlushCacheNonpausing();                       \
+                  func(st, __VA_ARGS__);                        \
+              }                                                 \
+          )                                                     \
+       ))                                                       \
     COURSE_GLOBAL_ARGS()
 
+inline void FlushCacheNonpausing(int level = 3) {
+    const auto& cpu = benchmark::CPUInfo::Get();
 
+    std::vector<unsigned> resetter;
+    for (const auto& cache : cpu.caches) {
+        if (cache.level != level) {
+            continue;
+        }
+
+        resetter.resize(cache.size / sizeof(unsigned),
+                        static_cast<unsigned>(level));
+    }
+
+    if (resetter.empty()) {
+        throw std::logic_error("Failed to reset cache");
+    }
+
+    unsigned trash = static_cast<unsigned>(level * level);
+    for (unsigned& v : resetter) {
+        trash += v;
+        v += trash;
+    }
+
+    benchmark::DoNotOptimize(trash);
+    benchmark::DoNotOptimize(resetter);
+}
 
 
 template <class T>
