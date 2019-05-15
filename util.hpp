@@ -126,6 +126,24 @@ static void iteration(benchmark::State& state, const Type& /*container_type*/) {
 }
 
 template <class Type>
+static void iteration_cold_cache(benchmark::State& state, const Type& /*container_type*/) {
+    for (auto _ : state) {
+        state.PauseTiming();
+        Type d;
+        fill_container(d, state.range(0));
+        FlushCacheNonpausing();
+        state.ResumeTiming();
+
+        int sum = 0;
+        for (auto v: d) {
+            sum += v; // Measuring this call
+        }
+        benchmark::DoNotOptimize(sum);
+
+    }
+}
+
+template <class Type>
 static void insertion(benchmark::State& state, const Type& /*container_type*/) {
     std::minstd_rand e1;
     std::uniform_int_distribution<int> uniform_dist(-100000, 100000);
