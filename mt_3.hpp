@@ -150,7 +150,7 @@ BENCH(mt_queue, naive/rw, naive_queue, init_value)->RangeMultiplier(2)->RangePai
 BENCH(mt_queue, optim/rw, optim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4);
 BENCH(mt_queue, ultim/rw, ultim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4);
 
-BENCH(mt_queue, naive/rw, naive_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
-BENCH(mt_queue, optim/rw, optim_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
-BENCH(mt_queue, ultim/rw, ultim_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+BENCH(mt_queue, naive_rt/rw, naive_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+BENCH(mt_queue, optim_rt/rw, optim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+BENCH(mt_queue, ultim_rt/rw, ultim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
 
