@@ -144,8 +144,13 @@ static void mt_queue(benchmark::State& state, Queue& q, const T& init_val) {
     }
 }
 
-const std::vector<int> init_value{1, 2, 42, 314};
+const std::vector<int> init_value(3000, 42);
 
-BENCH(mt_queue, naive/rw, naive_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
-BENCH(mt_queue, optim/rw, optim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
-BENCH(mt_queue, ultim/rw, ultim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4); //->UseRealTime();
+BENCH(mt_queue, naive/rw, naive_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4);
+BENCH(mt_queue, optim/rw, optim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4);
+BENCH(mt_queue, ultim/rw, ultim_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4);
+
+BENCH(mt_queue, naive/rw, naive_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+BENCH(mt_queue, optim/rw, optim_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+BENCH(mt_queue, ultim/rw, ultim_rt_queue, init_value)->RangeMultiplier(2)->RangePair(1, 4, 1, 4)->UseRealTime();
+
