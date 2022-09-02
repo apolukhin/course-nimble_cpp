@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-
+project(cpp_fast)
 if (CMAKE_VERSION VERSION_LESS "3.1")
   if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
@@ -16,7 +16,7 @@ add_subdirectory(benchmark)
 include_directories(benchmark/include/benchmark)
 include_directories(boost_container)
 
-project(cpp_fast)
+
 add_executable(${PROJECT_NAME}
     0_conf.hpp
 
