@@ -146,11 +146,11 @@ class SuiteComparingConsoleReporter: public ::benchmark::ConsoleReporter {
 
     void ReportRuns(const std::vector<Run>& reports) override {
         auto& first_report = reports.front();
-        CheckForBenchChanges(first_report.benchmark_name);
+        CheckForBenchChanges(first_report.benchmark_name());
 
         for (auto& r: reports) {
             if (!r.report_big_o && !r.report_rms) {
-                AddTimeMeasureToLastBenchmark(r.benchmark_name, static_cast<int>(first_report.GetAdjustedRealTime()));
+                AddTimeMeasureToLastBenchmark(r.benchmark_name(), static_cast<int>(first_report.GetAdjustedRealTime()));
             } else if (r.report_big_o) {
                 AddBigOMeasureToLastBenchmark(r.complexity);
             }
