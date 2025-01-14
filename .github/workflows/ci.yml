@@ -20,8 +20,6 @@ jobs:
                 include:
                   - os: ubuntu-24.04
                     cpp_compiler: g++
-                  - os: ubuntu-24.04
-                    cpp_compiler: clang
 
         name: '${{matrix.os}}: ${{matrix.cpp_compiler}}'
         runs-on: ${{matrix.os}}
@@ -32,7 +30,7 @@ jobs:
           - name: Install deps
             run: |
                 sudo apt update
-                sudo apt install --allow-downgrades -y git gcc g++ cmake clang
+                sudo apt install --allow-downgrades -y git gcc g++ cmake clang libc++-dev
 
           - name: Run CMake
             run: |
