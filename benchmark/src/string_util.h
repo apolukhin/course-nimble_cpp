@@ -4,36 +4,66 @@
 #include <sstream>
 #include <string>
 #include <utility>
+#include <vector>
+
+#include "benchmark/benchmark.h"
+#include "benchmark/export.h"
+#include "check.h"
 #include "internal_macros.h"
 
 namespace benchmark {
 
-void AppendHumanReadable(int n, std::string* str);
+BENCHMARK_EXPORT
+std::string HumanReadableNumber(double n, Counter::OneK one_k);
 
-std::string HumanReadableNumber(double n, double one_k = 1024.0);
+BENCHMARK_EXPORT
+#if defined(__MINGW32__)
+__attribute__((format(__MINGW_PRINTF_FORMAT, 1, 2)))
+#elif defined(__GNUC__)
+__attribute__((format(printf, 1, 2)))
+#endif
+std::string
+StrFormat(const char* format, ...);
 
-std::string StringPrintF(const char* format, ...);
-
-inline std::ostream& StringCatImp(std::ostream& out) BENCHMARK_NOEXCEPT {
+inline std::ostream& StrCatImp(std::ostream& out) BENCHMARK_NOEXCEPT {
   return out;
 }
 
 template <class First, class... Rest>
-inline std::ostream& StringCatImp(std::ostream& out, First&& f,
-                                  Rest&&... rest) {
+inline std::ostream& StrCatImp(std::ostream& out, First&& f, Rest&&... rest) {
   out << std::forward<First>(f);
-  return StringCatImp(out, std::forward<Rest>(rest)...);
+  return StrCatImp(out, std::forward<Rest>(rest)...);
 }
 
 template <class... Args>
 inline std::string StrCat(Args&&... args) {
   std::ostringstream ss;
-  StringCatImp(ss, std::forward<Args>(args)...);
+  StrCatImp(ss, std::forward<Args>(args)...);
   return ss.str();
 }
 
-void ReplaceAll(std::string* str, const std::string& from,
-                const std::string& to);
+BENCHMARK_EXPORT
+std::vector<std::string> StrSplit(const std::string& str, char delim);
+
+// Disable lint checking for this block since it re-implements C functions.
+// NOLINTBEGIN
+#ifdef BENCHMARK_STL_ANDROID_GNUSTL
+/*
+ * GNU STL in Android NDK lacks support for some C++11 functions, including
+ * stoul, stoi, stod. We reimplement them here using C functions strtoul,
+ * strtol, strtod. Note that reimplemented functions are in benchmark::
+ * namespace, not std:: namespace.
+ */
+unsigned long stoul(const std::string& str, size_t* pos = nullptr,
+                    int base = 10);
+int stoi(const std::string& str, size_t* pos = nullptr, int base = 10);
+double stod(const std::string& str, size_t* pos = nullptr);
+#else
+using std::stod;   // NOLINT(misc-unused-using-decls)
+using std::stoi;   // NOLINT(misc-unused-using-decls)
+using std::stoul;  // NOLINT(misc-unused-using-decls)
+#endif
+// NOLINTEND
 
 }  // end namespace benchmark
 

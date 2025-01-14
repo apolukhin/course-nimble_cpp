@@ -1,84 +1,29 @@
 # Benchmark Tools
 
-## compare_bench.py
-
-The `compare_bench.py` utility which can be used to compare the result of benchmarks.
-The program is invoked like:
-
-``` bash
-$ compare_bench.py <old-benchmark> <new-benchmark> [benchmark options]...
-```
-
-Where `<old-benchmark>` and `<new-benchmark>` either specify a benchmark executable file, or a JSON output file. The type of the input file is automatically detected. If a benchmark executable is specified then the benchmark is run to obtain the results. Otherwise the results are simply loaded from the output file.
-
-`[benchmark options]` will be passed to the benchmarks invocations. They can be anything that binary accepts, be it either normal `--benchmark_*` parameters, or some custom parameters your binary takes.
-
-The sample output using the JSON test files under `Inputs/` gives:
-
-``` bash
-$ ./compare_bench.py ./gbench/Inputs/test1_run1.json ./gbench/Inputs/test1_run2.json
-Comparing ./gbench/Inputs/test1_run1.json to ./gbench/Inputs/test1_run2.json
-Benchmark                        Time             CPU      Time Old      Time New       CPU Old       CPU New
--------------------------------------------------------------------------------------------------------------
-BM_SameTimes                  +0.0000         +0.0000            10            10            10            10
-BM_2xFaster                   -0.5000         -0.5000            50            25            50            25
-BM_2xSlower                   +1.0000         +1.0000            50           100            50           100
-BM_1PercentFaster             -0.0100         -0.0100           100            99           100            99
-BM_1PercentSlower             +0.0100         +0.0100           100           101           100           101
-BM_10PercentFaster            -0.1000         -0.1000           100            90           100            90
-BM_10PercentSlower            +0.1000         +0.1000           100           110           100           110
-BM_100xSlower                +99.0000        +99.0000           100         10000           100         10000
-BM_100xFaster                 -0.9900         -0.9900         10000           100         10000           100
-BM_10PercentCPUToTime         +0.1000         -0.1000           100           110           100            90
-BM_ThirdFaster                -0.3333         -0.3334           100            67           100            67
-BM_BadTimeUnit                -0.9000         +0.2000             0             0             0             1
-```
-
-As you can note, the values in `Time` and `CPU` columns are calculated as `(new - old) / |old|`.
-
-When a benchmark executable is run, the raw output from the benchmark is printed in real time to stdout. The sample output using `benchmark/basic_test` for both arguments looks like:
-
-```
-./compare_bench.py  test/basic_test test/basic_test  --benchmark_filter=BM_empty.*
-RUNNING: test/basic_test --benchmark_filter=BM_empty.* --benchmark_out=/tmp/tmpN7LF3a
-Run on (8 X 4000 MHz CPU s)
-2017-11-07 23:28:36
----------------------------------------------------------------------
-Benchmark                              Time           CPU Iterations
----------------------------------------------------------------------
-BM_empty                               4 ns          4 ns  170178757
-BM_empty/threads:8                     1 ns          7 ns  103868920
-BM_empty_stop_start                    0 ns          0 ns 1000000000
-BM_empty_stop_start/threads:8          0 ns          0 ns 1403031720
-RUNNING: /test/basic_test --benchmark_filter=BM_empty.* --benchmark_out=/tmp/tmplvrIp8
-Run on (8 X 4000 MHz CPU s)
-2017-11-07 23:28:38
----------------------------------------------------------------------
-Benchmark                              Time           CPU Iterations
----------------------------------------------------------------------
-BM_empty                               4 ns          4 ns  169534855
-BM_empty/threads:8                     1 ns          7 ns  104188776
-BM_empty_stop_start                    0 ns          0 ns 1000000000
-BM_empty_stop_start/threads:8          0 ns          0 ns 1404159424
-Comparing ../build/test/basic_test to ../build/test/basic_test
-Benchmark                                Time             CPU      Time Old      Time New       CPU Old       CPU New
----------------------------------------------------------------------------------------------------------------------
-BM_empty                              -0.0048         -0.0049             4             4             4             4
-BM_empty/threads:8                    -0.0123         -0.0054             1             1             7             7
-BM_empty_stop_start                   -0.0000         -0.0000             0             0             0             0
-BM_empty_stop_start/threads:8         -0.0029         +0.0001             0             0             0             0
-
-```
-
-As you can note, the values in `Time` and `CPU` columns are calculated as `(new - old) / |old|`.
-Obviously this example doesn't give any useful output, but it's intended to show the output format when 'compare_bench.py' needs to run benchmarks.
-
 ## compare.py
 
 The `compare.py` can be used to compare the result of benchmarks.
+
+### Dependencies
+The utility relies on the [scipy](https://www.scipy.org) package which can be installed using pip:
+```bash
+pip3 install -r requirements.txt
+```
+
+### Displaying aggregates only
+
+The switch `-a` / `--display_aggregates_only` can be used to control the
+displayment of the normal iterations vs the aggregates. When passed, it will
+be passthrough to the benchmark binaries to be run, and will be accounted for
+in the tool itself; only the aggregates will be displayed, but not normal runs.
+It only affects the display, the separate runs will still be used to calculate
+the U test.
+
+### Modes of operation
+
 There are three modes of operation:
 
-1. Just compare two benchmarks, what `compare_bench.py` did.
+1. Just compare two benchmarks
 The program is invoked like:
 
 ``` bash
@@ -240,3 +185,159 @@ Benchmark                               Time             CPU      Time Old      
 ```
 This is a mix of the previous two modes, two (potentially different) benchmark binaries are run, and a different filter is applied to each one.
 As you can note, the values in `Time` and `CPU` columns are calculated as `(new - old) / |old|`.
+
+### Note: Interpreting the output
+
+Performance measurements are an art, and performance comparisons are doubly so.
+Results are often noisy and don't necessarily have large absolute differences to
+them, so just by visual inspection, it is not at all apparent if two
+measurements are actually showing a performance change or not. It is even more
+confusing with multiple benchmark repetitions.
+
+Thankfully, what we can do, is use statistical tests on the results to determine
+whether the performance has statistically-significantly changed. `compare.py`
+uses [Mann–Whitney U
+test](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test), with a null
+hypothesis being that there's no difference in performance.
+ 
+**The below output is a summary of a benchmark comparison with statistics
+provided for a multi-threaded process.**
+```
+Benchmark                                               Time        CPU    Time Old      Time New       CPU Old       CPU New
+-----------------------------------------------------------------------------------------------------------------------------
+benchmark/threads:1/process_time/real_time_pvalue     0.0000     0.0000    U Test, Repetitions: 27 vs 27
+benchmark/threads:1/process_time/real_time_mean      -0.1442    -0.1442          90            77            90            77
+benchmark/threads:1/process_time/real_time_median    -0.1444    -0.1444          90            77            90            77
+benchmark/threads:1/process_time/real_time_stddev    +0.3974    +0.3933           0             0             0             0
+benchmark/threads:1/process_time/real_time_cv        +0.6329    +0.6280           0             0             0             0
+OVERALL_GEOMEAN                                      -0.1442    -0.1442           0             0             0             0
+```
+--------------------------------------------
+Here's a breakdown of each row:
+
+**benchmark/threads:1/process_time/real_time_pvalue**: This shows the _p-value_ for
+the statistical test comparing the performance of the process running with one
+thread. A value of 0.0000 suggests a statistically significant difference in
+performance. The comparison was conducted using the U Test (Mann-Whitney
+U Test) with 27 repetitions for each case.
+
+**benchmark/threads:1/process_time/real_time_mean**: This shows the relative
+difference in mean execution time between two different cases. The negative
+value (-0.1442) implies that the new process is faster by about 14.42%. The old
+time was 90 units, while the new time is 77 units.
+
+**benchmark/threads:1/process_time/real_time_median**: Similarly, this shows the
+relative difference in the median execution time. Again, the new process is
+faster by 14.44%.
+
+**benchmark/threads:1/process_time/real_time_stddev**: This is the relative
+difference in the standard deviation of the execution time, which is a measure
+of how much variation or dispersion there is from the mean. A positive value
+(+0.3974) implies there is more variance in the execution time in the new
+process.
+
+**benchmark/threads:1/process_time/real_time_cv**: CV stands for Coefficient of
+Variation. It is the ratio of the standard deviation to the mean. It provides a
+standardized measure of dispersion. An increase (+0.6329) indicates more
+relative variability in the new process.
+
+**OVERALL_GEOMEAN**: Geomean stands for geometric mean, a type of average that is
+less influenced by outliers. The negative value indicates a general improvement
+in the new process. However, given the values are all zero for the old and new
+times, this seems to be a mistake or placeholder in the output.
+
+-----------------------------------------
+
+
+
+Let's first try to see what the different columns represent in the above
+`compare.py` benchmarking output:
+
+  1. **Benchmark:** The name of the function being benchmarked, along with the
+     size of the input (after the slash).
+
+  2. **Time:** The average time per operation, across all iterations.
+
+  3. **CPU:** The average CPU time per operation, across all iterations.
+
+  4. **Iterations:** The number of iterations the benchmark was run to get a
+     stable estimate.
+
+  5. **Time Old and Time New:** These represent the average time it takes for a
+     function to run in two different scenarios or versions. For example, you
+     might be comparing how fast a function runs before and after you make some
+     changes to it.
+
+  6. **CPU Old and CPU New:** These show the average amount of CPU time that the
+     function uses in two different scenarios or versions. This is similar to
+     Time Old and Time New, but focuses on CPU usage instead of overall time.
+
+In the comparison section, the relative differences in both time and CPU time
+are displayed for each input size.
+
+
+A statistically-significant difference is determined by a **p-value**, which is
+a measure of the probability that the observed difference could have occurred
+just by random chance. A smaller p-value indicates stronger evidence against the
+null hypothesis. 
+
+**Therefore:**
+  1. If the p-value is less than the chosen significance level (alpha), we
+     reject the null hypothesis and conclude the benchmarks are significantly
+     different.
+  2. If the p-value is greater than or equal to alpha, we fail to reject the
+     null hypothesis and treat the two benchmarks as similar.
+
+
+
+The result of said the statistical test is additionally communicated through color coding:
+```diff
++ Green:
+```
+  The benchmarks are _**statistically different**_. This could mean the
+  performance has either **significantly improved** or **significantly
+  deteriorated**. You should look at the actual performance numbers to see which
+  is the case.
+```diff
+- Red:
+```
+  The benchmarks are _**statistically similar**_. This means the performance
+  **hasn't significantly changed**.
+
+In statistical terms, **'green'** means we reject the null hypothesis that
+there's no difference in performance, and **'red'** means we fail to reject the
+null hypothesis. This might seem counter-intuitive if you're expecting 'green'
+to mean 'improved performance' and 'red' to mean 'worsened performance'. 
+```bash
+  But remember, in this context:
+
+    'Success' means 'successfully finding a difference'.
+    'Failure' means 'failing to find a difference'.
+```
+
+
+Also, please note that **even if** we determine that there **is** a
+statistically-significant difference between the two measurements, it does not
+_necessarily_ mean that the actual benchmarks that were measured **are**
+different, or vice versa, even if we determine that there is **no**
+statistically-significant difference between the two measurements, it does not
+necessarily mean that the actual benchmarks that were measured **are not**
+different.
+
+
+
+### U test
+
+If there is a sufficient repetition count of the benchmarks, the tool can do
+a [U Test](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test), of the
+null hypothesis that it is equally likely that a randomly selected value from
+one sample will be less than or greater than a randomly selected value from a
+second sample.
+
+If the calculated p-value is below this value is lower than the significance
+level alpha, then the result is said to be statistically significant and the
+null hypothesis is rejected. Which in other words means that the two benchmarks
+aren't identical.
+
+**WARNING**: requires **LARGE** (no less than 9) number of repetitions to be
+meaningful!
