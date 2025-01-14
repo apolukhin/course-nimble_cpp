@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(cpp_fast)
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 
 option (CMAKE_SUPPRESS_REGENERATION "Suppress the cmake macro that causes regeneration of build scripts during build" ON)
 
