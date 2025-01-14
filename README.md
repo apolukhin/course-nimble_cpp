@@ -2,7 +2,7 @@
 
 Tasks and helper libraries for C++ course by Antony Polukhin.
 
-[![Build Status](https://travis-ci.org/apolukhin/course-nimble_cpp.svg?branch=master)](https://travis-ci.org/apolukhin/course-nimble_cpp)
+[![CI](https://github.com/apolukhin/course-nimble_cpp/actions/workflows/ci.yml/badge.svg)](https://github.com/apolukhin/course-nimble_cpp/actions/workflows/ci.yml)
 [![Build status](https://ci.appveyor.com/api/projects/status/wii3x2jsdxmqyh4i/branch/master?svg=true)](https://ci.appveyor.com/project/apolukhin/course-nimble-cpp/branch/master)
 [![codecov](https://codecov.io/gh/apolukhin/course-nimble_cpp/branch/master/graph/badge.svg)](https://codecov.io/gh/apolukhin/course-nimble_cpp)
 
