@@ -42,13 +42,16 @@ jobs:
 
           - name: Build
             run: |
+                cd build
                 VERBOSE=1 make -j2
 
           - name: Test
             run: |
+                cd build
                 ./cpp_fast
 
           - name: Coverage
             run: |
+                cd build
                 bash <(curl -s https://codecov.io/bash) -f '!*benchmark*'
 
