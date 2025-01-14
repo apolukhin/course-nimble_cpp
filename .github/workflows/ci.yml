@@ -19,11 +19,11 @@ jobs:
             matrix:
                 include:
                   - os: ubuntu-24.04
-                    compiler: g++
+                    cpp_compiler: g++
                   - os: ubuntu-24.04
-                    compiler: clang
+                    cpp_compiler: clang
 
-        name: '${{matrix.os}}: ${{matrix.compiler}}'
+        name: '${{matrix.os}}: ${{matrix.cpp_compiler}}'
         runs-on: ${{matrix.os}}
 
         steps:
@@ -36,7 +36,9 @@ jobs:
 
           - name: Run CMake
             run: |
-                CXX={{matrix.compiler}} cmake -DCMAKE_BUILD_TYPE=Release
+                mkdir build
+                cd build
+                cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${{matrix.cpp_compiler}} ..
 
           - name: Build
             run: |
