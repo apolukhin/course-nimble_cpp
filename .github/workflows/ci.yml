@@ -1,0 +1,52 @@
+name: CI
+
+'on':
+    schedule:
+      - cron: '30 4 * * 1'  # Every Monday at 4:30
+    pull_request:
+    push:
+        branches:
+          - master
+
+env:
+    UBSAN_OPTIONS: print_stacktrace=1
+    ASAN_OPTIONS: detect_odr_violation=2
+
+jobs:
+    posix:
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                  - os: ubuntu-24.04
+                    compiler: g++
+                  - os: ubuntu-24.04
+                    compiler: clang
+
+        name: '${{matrix.os}}: ${{matrix.compiler}}'
+        runs-on: ${{matrix.os}}
+
+        steps:
+          - uses: actions/checkout@v4
+
+          - name: Install deps
+            run: |
+                sudo apt update
+                sudo apt install --allow-downgrades -y git gcc g++ cmake clang
+
+          - name: Run CMake
+            run: |
+                CXX={{matrix.compiler}} cmake -DCMAKE_BUILD_TYPE=Release
+
+          - name: Build
+            run: |
+                VERBOSE=1 make -j2
+
+          - name: Test
+            run: |
+                ./cpp_fast
+
+          - name: Coverage
+            run: |
+                bash <(curl -s https://codecov.io/bash) -f '!*benchmark*'
+
